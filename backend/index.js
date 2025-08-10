@@ -3,14 +3,16 @@ const express = require('express');
 const connectToMongo = require('./db');
 const cors = require('cors');
 
-//  Connect to MongoDB
+// Connect to MongoDB
 connectToMongo();
 
 const app = express();  
-const port = 5000; 
+const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: "*" // Baad me frontend ka URL dal sakte ho security ke liye
+}));
 app.use(express.json());
 
 // Routes
@@ -19,7 +21,7 @@ app.use('/api/notes', require('./routes/notes'));
 
 // Test route
 app.get('/ping', (req, res) => {
-  res.send(" Server is running");
+  res.send("Server is running");
 });
 
 // Start server

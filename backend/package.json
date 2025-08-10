@@ -1,9 +1,12 @@
 {
   "name": "inotebook-backend",
+    "homepage": "https://vaishnavi-kumbhar.github.io/CloudNotes",
   "version": "1.0.0",
   "description": "iNotebook - Your notebook on the cloud",
   "main": "index.js",
   "scripts": {
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
