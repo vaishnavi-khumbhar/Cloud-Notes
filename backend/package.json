@@ -1,6 +1,6 @@
 {
   "name": "inotebook-backend",
-    "homepage": "https://vaishnavi-kumbhar.github.io/CloudNotes",
+  "homepage": "https://vaishnavi-kumbhar.github.io/CloudNotes-Website",
   "version": "1.0.0",
   "description": "iNotebook - Your notebook on the cloud",
   "main": "index.js",
