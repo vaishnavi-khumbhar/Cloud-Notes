@@ -52,58 +52,52 @@ router.post('/createuser', [
         const authtoken = jwt.sign(data, JWT_SECRET);
 
         // Send welcome email 
-        console.log(` Sending welcome email to: ${req.body.email}`);
-        try {
-            const htmlContent = `
-            <div style="background-color:#f4f4f4; padding:20px; font-family: Arial, sans-serif;">
-              <div style="max-width:600px; margin:auto; background:#ffffff; border-radius:8px; overflow:hidden;">
-                <div style="background:#0d6efd; padding:15px; text-align:center; border-top-left-radius:8px; border-top-right-radius:8px;">
-                </div>
-                <div style="padding:20px; color:#333;">
-                  <h2 style="color:#0d6efd;">Welcome to CloudMind, ${req.body.name}! 🎉</h2>
-                  <p>Thank you for joining <b>CloudMind</b>. Your personal cloud notebook is ready!</p>
-                  <ul>
-                    <li>📌 Create and organize your notes easily</li>
-                    <li>🔒 Keep your data secure in the cloud</li>
-                    <li>☁️ Access your notes from anywhere</li>
-                  </ul>
-                  <div style="text-align:center; margin-top:30px;">
-                    <a href="http://localhost:3000" 
-                       style="background:#0d6efd; color:white; padding:12px 25px; text-decoration:none; 
-                              font-weight:bold; border-radius:5px; display:inline-block;">
-                      Go to iNotebook
-                    </a>
-                  </div>
-                  <p style="margin-top:30px; font-size:13px; color:#777;">If you didn't sign up, please ignore this email.</p>
-                </div>
-                <div style="background:#f4f4f4; padding:10px; text-align:center; font-size:12px; color:#999;">
-                  © ${new Date().getFullYear()} CloudMind☁️. All rights reserved.
-                </div>
-              </div>
-            </div>
-            `;
+       console.log(` Sending welcome email to: ${req.body.email}`);
+try {
+    const htmlContent = `
+    <div style="background-color:#f4f4f4; padding:20px; font-family: Arial, sans-serif;">
+      <div style="max-width:600px; margin:auto; background:#ffffff; border-radius:8px; overflow:hidden;">
+        <div style="background:#007bff; padding:15px; text-align:center; border-top-left-radius:8px; border-top-right-radius:8px;">
+        </div>
+        <div style="padding:20px; color:#333;">
+          <h2 style="color:#007bff;">Welcome to CloudMind, ${req.body.name}! 🎉</h2>
+          <p>Thank you for joining <b>CloudMind</b>. Your personal cloud notebook is ready!</p>
+          <ul>
+            <li>📌 Create and organize your notes easily</li>
+            <li>🔒 Keep your data secure in the cloud</li>
+            <li>☁️ Access your notes from anywhere</li>
+          </ul>
+          <div style="text-align:center; margin-top:30px;">
+            <a href="https://vaishnavi-khumbhar.github.io/Cloud-Notes/" 
+               style="background:#007bff; color:white; padding:12px 25px; text-decoration:none; 
+                      font-weight:bold; border-radius:5px; display:inline-block;">
+              Go to CloudMind☁️ Site
+            </a>
+          </div>
+          <p style="margin-top:30px; font-size:13px; color:#777;">If you didn't sign up, please ignore this email.</p>
+        </div>
+        <div style="background:#f4f4f4; padding:10px; text-align:center; font-size:12px; color:#999;">
+          © ${new Date().getFullYear()} CloudMind☁️. All rights reserved.
+        </div>
+      </div>
+    </div>
+    `;
 
-            await sendMail(
-                req.body.email,
-                "🎉 Welcome to CloudMind ☁️",
-                null,
-                htmlContent
-            );
+    await sendMail(
+        req.body.email,
+        "🎉 Welcome to CloudMind ☁️",
+        null,
+        htmlContent
+    );
 
-            console.log(`✅ Welcome email sent to: ${req.body.email}`);
-        } catch (mailError) {
-            console.error(`Failed to send welcome email to: ${req.body.email}`);
-            console.error(`Error: ${mailError.message}`);
-        }
-        
-        success = true;
-        res.json({ success, authtoken });
+    console.log(`✅ Welcome email sent to: ${req.body.email}`);
+} catch (mailError) {
+    console.error(`Failed to send welcome email to: ${req.body.email}`);
+    console.error(`Error: ${mailError.message}`);
+}
 
-    } catch (error) {
-        console.error(" Signup route error:", error);
-        res.status(500).send("Internal Server Error");
-    }
-});
+success = true;
+res.json({ success, authtoken });
 
 // ROUTE 2: Authenticate a User using: POST "api/auth/login"
 router.post('/login', [

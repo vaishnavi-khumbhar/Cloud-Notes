@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 import lottie from 'lottie-web';
 import { defineElement } from 'lord-icon-element';
 
-// ✅ Move this line here (after imports, before component)
+// Move this line here (after imports, before component)
 defineElement(lottie.loadAnimation);
 
 function App() {
@@ -32,7 +32,8 @@ function App() {
 
   return (
     <NoteState>
-      <Router>
+      {/* Set basename to your GitHub repo name for correct routing */}
+      <Router basename="/Cloud-Notes">
         {/* Flex container for full height layout */}
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar />
