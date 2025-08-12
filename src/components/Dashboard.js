@@ -4,10 +4,13 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Backend URL from .env
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auth/getuser", {
+        const res = await fetch(`${API_BASE}/api/auth/getuser`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -25,7 +28,7 @@ const Dashboard = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [API_BASE]); // API_BASE dependency optional but good practice
 
   if (loading) {
     return (

@@ -1,6 +1,5 @@
 {
-  "homepage": "https://vaishnavi-kumbhar.github.io/CloudNotes-Website",
-
+"homepage": "https://vaishnavi-khumbhar.github.io/Cloud-Notes",
   "name": "inotebook",
   "version": "0.1.0",
   "private": true,
@@ -29,7 +28,8 @@
     "server": "nodemon index.js",
     "both": "concurrently \"npm run server\" \"npm run start\"",
      "predeploy": "npm run build",
-     "deploy": "gh-pages -d build"
+"deploy": "gh-pages -d build"
+
 
   },
   "eslintConfig": {

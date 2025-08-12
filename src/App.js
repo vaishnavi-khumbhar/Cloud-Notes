@@ -9,7 +9,7 @@ import Alert from './components/Alert';
 import NoteState from './context/notes/NoteState';
 import PrivateRoute from './components/PrivateRoute';
 import Dashboard from "./components/Dashboard";
-
+import Footer from './components/Footer';
 
 import lottie from 'lottie-web';
 import { defineElement } from 'lord-icon-element';
@@ -33,34 +33,37 @@ function App() {
   return (
     <NoteState>
       <Router>
-        <Navbar />
-        <Alert alert={alert} />
-        <div className="container">
-          <Routes>
-            {/* Protected Routes */}
-            <Route
-              path="/"
-              element={
-                <PrivateRoute>
-                  <Home showAlert={showAlert} />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/about"
-              element={
-                <PrivateRoute>
-                  <About />
-                </PrivateRoute>
-              }
-            />
+        {/* Flex container for full height layout */}
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <Navbar />
+          <Alert alert={alert} />
+          <div className="container" style={{ flex: 1 }}>
+            <Routes>
+              {/* Protected Routes */}
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <Home showAlert={showAlert} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <PrivateRoute>
+                    <About />
+                  </PrivateRoute>
+                }
+              />
 
-            {/*  Public Routes */}
-            <Route path="/signup" element={<Signup showAlert={showAlert} />} />
-            <Route path="/login" element={<Login showAlert={showAlert} />} />
-            <Route exact path="/dashboard" element={<Dashboard />} />
-
-          </Routes>
+              {/* Public Routes */}
+              <Route path="/signup" element={<Signup showAlert={showAlert} />} />
+              <Route path="/login" element={<Login showAlert={showAlert} />} />
+              <Route exact path="/dashboard" element={<Dashboard />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
       </Router>
     </NoteState>

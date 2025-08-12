@@ -8,6 +8,9 @@ const AddNote = (props) => {
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
   const titleRef = useRef(null);
 
+  // Backend URL from .env
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   // Auto focus title field when component mounts
   useEffect(() => {
     if (titleRef.current) {

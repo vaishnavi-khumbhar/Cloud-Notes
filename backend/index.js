@@ -3,15 +3,19 @@ const express = require('express');
 const connectToMongo = require('./db');
 const cors = require('cors');
 
-// Connect to MongoDB
+// Connect to MongoDB using Atlas connection from .env
 connectToMongo();
 
-const app = express();  
+const app = express();
 const port = process.env.PORT || 5000;
+
+app.get('/', (req, res) => {
+  res.send('Welcome to iNotebook backend!');
+});
 
 // Middleware
 app.use(cors({
-    origin: "*" // Baad me frontend ka URL dal sakte ho security ke liye
+    origin: "*" // Security साठी नंतर frontend URL टाक
 }));
 app.use(express.json());
 
@@ -21,10 +25,10 @@ app.use('/api/notes', require('./routes/notes'));
 
 // Test route
 app.get('/ping', (req, res) => {
-  res.send("Server is running");
+    res.send("Server is running");
 });
 
 // Start server
 app.listen(port, () => {
-  console.log(`iNotebook backend listening at http://localhost:${port}`);
+    console.log(`iNotebook backend listening at http://localhost:${port}`);
 });

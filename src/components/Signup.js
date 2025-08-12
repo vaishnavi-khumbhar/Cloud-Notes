@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 const Signup = (props) => {
@@ -9,10 +9,16 @@ const Signup = (props) => {
     password: "",
     cpassword: "",
   });
+
   const navigate = useNavigate();
+
+  // Direct Render backend URL
+const API_BASE = process.env.REACT_APP_API_BASE;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("Submitting signup form:", credentials);
 
     if (credentials.password !== credentials.cpassword) {
       props.showAlert("Passwords do not match", "danger");
@@ -22,24 +28,28 @@ const Signup = (props) => {
     const { name, email, password } = credentials;
 
     try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/auth/createuser`, {
+      console.log("Calling API:", `${API_BASE}/api/auth/createuser`);
 
+      const response = await fetch(`${API_BASE}/api/auth/createuser`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
+
+      console.log("HTTP Status:", response.status);
 
       const json = await response.json();
       console.log("Signup API Response:", json);
 
       if (json.success) {
         localStorage.setItem("token", json.authtoken);
-        navigate("/");
         props.showAlert("Account created successfully", "success");
+        navigate("/");
       } else {
         props.showAlert(json.error || "User already exists", "danger");
       }
     } catch (error) {
+      console.error("Signup error:", error);
       props.showAlert("Server error. Please try again later.", "danger");
     }
   };
@@ -156,7 +166,9 @@ const Signup = (props) => {
 
         <p className="text-center text-muted mt-4 mb-0 fs-6">
           Already have an account?{" "}
-          
+          <a href="/login" className="text-primary fw-semibold">
+            Log In
+          </a>
         </p>
       </div>
     </div>

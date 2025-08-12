@@ -2,7 +2,8 @@ import NoteContext from "./noteContext";
 import { useState } from "react";
 
 const NoteState = (props) => {
-    const host = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    // Backend URL from environment variable
+    const host = process.env.REACT_APP_API_BASE;
     const [notes, setNotes] = useState([]);
 
     // Get all notes
@@ -36,14 +37,13 @@ const NoteState = (props) => {
 
     // Delete a Note
     const deleteNote = async (id) => {
-        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+        await fetch(`${host}/api/notes/deletenote/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": localStorage.getItem('token')
             }
         });
-        await response.json();
 
         const newNotes = notes.filter(note => note._id !== id);
         setNotes(newNotes);
